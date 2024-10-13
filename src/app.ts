@@ -5,7 +5,6 @@ import { koaBody as BodyParser } from 'koa-body';
 import { join } from 'path';
 import { readdirSync } from 'fs';
 import { EntityManager, EntityRepository, MikroORM, RequestContext } from '@mikro-orm/better-sqlite';
-import { Patent } from './entities';
 
 const app = new Koa();
 const PORT = process.env.PORT || 8080;
@@ -32,14 +31,12 @@ app.use(BodyParser({ multipart: true, formidable: { uploadDir, maxFileSize: 1024
 
 export const DI = {} as {
   orm: MikroORM,
-  em: EntityManager,
-  patents: EntityRepository<Patent>
+  em: EntityManager
 };
 
 (async () => {
   DI.orm = await MikroORM.init(); // CLI config will be used automatically
   DI.em = DI.orm.em;
-  DI.patents = DI.orm.em.getRepository(Patent);
 
   await DI.orm.schema.updateSchema();
 

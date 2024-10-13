@@ -2,22 +2,29 @@ import Router from 'koa-router';
 import { Context } from 'koa';
 import xlsx from 'node-xlsx';
 import type { Files, File } from 'formidable';
-import DataTable from '../common/DataTable';
+import DataTable from '../common/data-table';
 import { DI } from '../app';
-import { Patent, PatentStatus, PatentType } from '../entities';
+import { Patent, PatentStatus, PatentType } from '../entities/patent';
 import { randomUUID } from 'crypto';
-import { QueryBuilder } from '@mikro-orm/better-sqlite';
+import { GroupOperator, QueryBuilder, QueryOperator } from '@mikro-orm/better-sqlite';
+import { PatentQueryDto } from '../dto/patent-query-dto';
+import { deserialize } from 'class-transformer';
 
 const router = new Router();
 const FileField: string = 'file';
 
 router.get('/', async (ctx: Context) => {
 
-    const page: number = Number(ctx.query.page || 1);
-    const size: number = Number(ctx.query.size || 10);
+    const query = deserialize(PatentQueryDto, JSON.stringify(ctx.query));
 
-    const builder: QueryBuilder<Patent> = DI.patents.createQueryBuilder();
-    builder.select('*').orderBy({ createdAt: 'DESC' }).limit(size).offset((page - 1) * size);
+    const builder: QueryBuilder<Patent> = DI.em.createQueryBuilder(Patent);
+    builder.select('*').where("1 = 1");
+
+    if (query.name) builder.andWhere({ name: { $like: `%${query.name}%` } });
+    if (query.number) builder.andWhere({ number: query.number });
+    if (query.price) builder.andWhere({ price: { $gte: query.getPriceOfMin(), $lt: query.getPriceOfMax() } });
+
+    builder.orderBy({ createdAt: 'DESC' }).limit(query.size).offset((query.page - 1) * query.size);
 
     const result = await builder.getResultList();
 
@@ -69,14 +76,29 @@ router.post('/import', async (ctx: Context) => {
         patent.domain = datatable.getColumnValueWithKeyAndRowIndex('领域', i);
         patent.remark = datatable.getColumnValueWithKeyAndRowIndex('备注', i);
 
-        patent.creatorId = 1;
-        patent.updatorId = 1;
+        patent.creatorId = randomUUID();
+        patent.updatorId = randomUUID();
 
         patents.push(patent);
     });
 
-    DI.patents.insertMany(patents);
-    DI.em.flush();
+    try {
+
+        await DI.em.persist(patents).flush();
+    } catch (error: any) {
+
+        console.error(error);
+        if (error.code === 'SQLITE_CONSTRAINT') {
+
+        }
+
+        ctx.body = '导入失败';
+        ctx.status = 500;
+        return;
+    }
+
+    ctx.status = 200;
+    ctx.body = { message: '导入成功' };
 });
 
 export { router };

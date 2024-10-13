@@ -19,6 +19,7 @@
   "dependencies": {
     "@mikro-orm/better-sqlite": "^6.3.13",
     "@mikro-orm/core": "^6.3.13",
+    "class-transformer": "^0.5.1",
     "koa": "^2.15.0",
     "koa-body": "^6.0.1",
     "koa-router": "^12.0.1",

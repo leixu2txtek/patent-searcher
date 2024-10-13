@@ -1,5 +1,5 @@
 import { Entity, Property, Enum, Unique } from '@mikro-orm/better-sqlite';
-import { BaseEntity } from './BaseEntity';
+import { BaseEntity } from './base-entity';
 
 @Entity()
 export class Patent extends BaseEntity {

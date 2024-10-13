@@ -5,8 +5,8 @@ export abstract class BaseEntity {
   @PrimaryKey({ columnType: 'varchar', length: 36 })
   id!: string;
 
-  @Property({ columnType: 'bigint' })
-  creatorId?: number;
+  @Property({ columnType: 'varchar', length: 36 })
+  creatorId?: string;
 
   @Property()
   createdAt: Date = new Date();
@@ -14,6 +14,6 @@ export abstract class BaseEntity {
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
 
-  @Property({ nullable: true, columnType: 'bigint' })
-  updatorId?: number;
+  @Property({ nullable: true, columnType: 'varchar', length: 36 })
+  updatorId?: string;
 }
