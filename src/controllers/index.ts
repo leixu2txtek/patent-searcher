@@ -6,7 +6,7 @@ import DataTable from '../common/data-table';
 import { DI } from '../app';
 import { Patent, PatentStatus, PatentType } from '../entities/patent';
 import { randomUUID } from 'crypto';
-import { GroupOperator, QueryBuilder, QueryOperator } from '@mikro-orm/better-sqlite';
+import { QueryBuilder } from '@mikro-orm/better-sqlite';
 import { PatentQueryDto } from '../dto/patent-query-dto';
 import { deserialize } from 'class-transformer';
 
