@@ -22,6 +22,9 @@ export class Patent extends BaseEntity {
   @Property({ default: 0, columnType: 'decimal(10, 2)' })
   price!: number;
 
+  /**
+   * 缴费截止日期
+   */
   @Property()
   deadline?: Date;
 
@@ -58,9 +61,41 @@ export enum PatentStatus {
   // 未知
   UNKNOWN = -1,
 
-  // 未发放
+  // 未下证
   NOT_ISSUED = 0,
 
-  // 已发放
+  // 已下证
   ISSUED = 1,
 }
+
+export const PatentTypeText: Array<{ name: string, value: PatentType}> = [
+
+  {
+    name: '未知类型',
+    value: PatentType.UNKNOWN
+  },
+  {
+    name: '发明专利',
+    value: PatentType.PATENT
+  },
+  {
+    name: '实用新型',
+    value: PatentType.MODEL
+  }
+];
+
+export const PatentStatusText: Array<{ name: string, value: PatentStatus}> = [
+
+  {
+    name: '未知状态',
+    value: PatentStatus.UNKNOWN
+  },
+  {
+    name: '未下证',
+    value: PatentStatus.NOT_ISSUED
+  },
+  {
+    name: '已下证',
+    value: PatentStatus.ISSUED
+  }
+];

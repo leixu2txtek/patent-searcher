@@ -3,6 +3,9 @@ import { PageAble } from "../common/page-able";
 
 export class PatentQueryDto extends PageAble {
 
+    // 关键字，模糊匹配
+    keyword?: string;
+
     /**
      * 专利名称
      */
