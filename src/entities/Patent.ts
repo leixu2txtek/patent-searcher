@@ -19,6 +19,10 @@ export class Patent extends BaseEntity {
   @Enum(() => PatentStatus)
   status: PatentStatus = PatentStatus.UNKNOWN;
 
+  @Property({ columnType: 'int' })
+  @Enum(() => PatentCategory)
+  category: PatentCategory = PatentCategory.UNKNOWN;
+
   @Property({ default: 0, columnType: 'decimal(10, 2)' })
   price!: number;
 
@@ -66,6 +70,18 @@ export enum PatentStatus {
 
   // 已下证
   ISSUED = 1,
+}
+
+export enum PatentCategory {
+  
+    // 未知
+    UNKNOWN = -1,
+  
+    // 实时
+    REALTIME = 1,
+  
+    // 代售
+    PROXY = 2
 }
 
 export const PatentTypeText: Array<{ name: string, value: PatentType}> = [

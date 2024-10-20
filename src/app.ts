@@ -5,6 +5,7 @@ import { koaBody as BodyParser } from 'koa-body';
 import { join } from 'path';
 import { readdirSync } from 'fs';
 import { EntityManager, EntityRepository, MikroORM, RequestContext } from '@mikro-orm/better-sqlite';
+import jwt from 'koa-jwt';
 
 const app = new Koa();
 const PORT = process.env.PORT || 8080;
@@ -13,6 +14,7 @@ const staticPath = join(__dirname, './');
 const uploadDir = join(staticPath, 'uploads');
 
 app.use(BodyParser({ multipart: true, formidable: { uploadDir, maxFileSize: 1024 * 1024 * 1024 } }));
+app.use(jwt({ secret: 'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2' }).unless({ path: /^\/v\d+\/pb/ }));
 
 // 加载路由
 {
