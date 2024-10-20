@@ -143,7 +143,7 @@ router.post('/import', async (ctx: Context) => {
                 patent.type = datatable.getColumnValueWithKeyAndRowIndex('专利类型', i) === '发明专利' ? PatentType.PATENT : PatentType.MODEL;
                 patent.status = datatable.getColumnValueWithKeyAndRowIndex('专利状态', i) === '未下证' ? PatentStatus.NOT_ISSUED : PatentStatus.ISSUED;
                 patent.category = type === '1' ? PatentCategory.REALTIME : PatentCategory.PROXY;
-                patent.price = datatable.getColumnValueWithKeyAndRowIndex('指导价', i);
+                patent.price = parseFloat(datatable.getColumnValueWithKeyAndRowIndex('指导价', i)) || 0;
                 patent.deadline = datatable.getColumnValueWithKeyAndRowIndex('缴费截止日期', i);
 
                 patent.reported = datatable.getColumnValueWithKeyAndRowIndex('是否报过项目', i) === '是';

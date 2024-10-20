@@ -71,7 +71,7 @@ router.post('/register', async (ctx: Context) => {
         return;
     }
 
-    if (!(query.mobile && query.email) || !query.password) {
+    if (!query.mobile || !query.email || !query.password) {
 
         ctx.status = 400;
         ctx.body = { message: '手机号或邮箱或密码不能为空' };

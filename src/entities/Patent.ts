@@ -27,7 +27,7 @@ export class Patent extends BaseEntity {
   @Property({ default: 0, columnType: 'decimal(10, 2)' })
   price!: number;
 
-  @OneToOne('Order', 'patent')
+  @OneToOne('Order', 'patent', { nullable: true, cascade: [] })
   order?: Order;
 
   /**
