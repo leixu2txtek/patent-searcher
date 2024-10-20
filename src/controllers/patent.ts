@@ -4,11 +4,12 @@ import xlsx from 'node-xlsx';
 import type { Files, File } from 'formidable';
 import DataTable from '../common/data-table';
 import { DI } from '../app';
-import { Patent, PatentStatus, PatentStatusText, PatentType, PatentTypeText } from '../entities/patent';
+import { Patent, PatentCategory, PatentCategoryText, PatentStatus, PatentStatusText, PatentType, PatentTypeText } from '../entities/patent';
 import { randomUUID } from 'crypto';
-import { QueryBuilder } from '@mikro-orm/better-sqlite';
+import { QueryBuilder, t } from '@mikro-orm/better-sqlite';
 import { PatentQueryDto } from '../dto/patent-query-dto';
 import { deserialize } from 'class-transformer';
+import { Order } from '../entities/order';
 
 const router = new Router();
 const FileField: string = 'file';
@@ -20,8 +21,10 @@ router.get('/list', async (ctx: Context) => {
 
     const query = deserialize(PatentQueryDto, JSON.stringify(ctx.query));
 
-    let builder: QueryBuilder<Patent> = DI.em.createQueryBuilder(Patent);
-    builder.select('*').where("1 = 1");
+    let builder: QueryBuilder<Patent> = DI.em.createQueryBuilder(Patent, 'p');
+    builder.select('*')
+    .leftJoin('p.order', 'o')
+    .where("1 = 1");
 
     if (query.keyword) {
 
@@ -37,6 +40,8 @@ router.get('/list', async (ctx: Context) => {
 
     if (query.name) builder.andWhere({ name: { $like: `%${query.name}%` } });
     if (query.number) builder.andWhere({ number: query.number });
+    if (query.type) builder.andWhere({ type: query.type });
+    if (query.category) builder.andWhere({ category: query.category });
     if (query.price) builder.andWhere({ price: { $gte: query.getPriceOfMin(), $lt: query.getPriceOfMax() } });
 
     // 获取总数
@@ -53,11 +58,14 @@ router.get('/list', async (ctx: Context) => {
         number: x.number,
         type: PatentTypeText[x.type].name,
         status: PatentStatusText[x.status].name,
+        category: PatentCategoryText[x.category].name,
         price: x.price,
         deadline: x.deadline,
         reported: x.reported,
         domain: x.domain,
         remark: x.remark,
+        from: x.creatorId === ctx.state.user.id ? ctx.state.user.name : '平台',
+        ordered: x.order ? true : false,
         createdAt: x.createdAt
     })));
 
@@ -75,10 +83,18 @@ router.get('/list', async (ctx: Context) => {
 router.post('/import', async (ctx: Context) => {
 
     const body: Files | undefined = ctx.request.files;
+    const type: string = ctx.request.body.type;
 
     if (!body || !body.hasOwnProperty(FileField)) {
 
         ctx.body = '要解析的EXCEL文件不能为空';
+        ctx.status = 400;
+        return;
+    }
+
+    if (!type) {
+
+        ctx.body = '专利类型不能为空';
         ctx.status = 400;
         return;
     }
@@ -126,6 +142,7 @@ router.post('/import', async (ctx: Context) => {
 
                 patent.type = datatable.getColumnValueWithKeyAndRowIndex('专利类型', i) === '发明专利' ? PatentType.PATENT : PatentType.MODEL;
                 patent.status = datatable.getColumnValueWithKeyAndRowIndex('专利状态', i) === '未下证' ? PatentStatus.NOT_ISSUED : PatentStatus.ISSUED;
+                patent.category = type === '1' ? PatentCategory.REALTIME : PatentCategory.PROXY;
                 patent.price = datatable.getColumnValueWithKeyAndRowIndex('指导价', i);
                 patent.deadline = datatable.getColumnValueWithKeyAndRowIndex('缴费截止日期', i);
 
@@ -133,7 +150,7 @@ router.post('/import', async (ctx: Context) => {
                 patent.domain = datatable.getColumnValueWithKeyAndRowIndex('领域', i);
                 patent.remark = datatable.getColumnValueWithKeyAndRowIndex('备注', i);
 
-                patent.creatorId = randomUUID();
+                patent.creatorId = ctx.state.user.id;
                 patent.updatorId = randomUUID();
 
                 patents.push(patent);
@@ -165,6 +182,42 @@ router.get('/status/:id', async (ctx: Context) => {
     }
 
     ctx.body = task;
+    ctx.status = 200;
+});
+
+router.post('/order/:id', async (ctx: Context) => {
+
+    const { id } = ctx.params;
+    const patent = await DI.em.findOne(Patent, { id });
+    if (!patent) {
+
+        ctx.status = 400;
+        ctx.body = '专利不存在';
+        return;
+    }
+
+    const order = new Order();
+    order.id = randomUUID();
+    order.patent = patent;
+    order.creatorId = ctx.state.user.id;
+
+    try {
+
+        await DI.em.persist(order).flush();
+    } catch (error: any) {
+
+        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+
+            ctx.status = 200;
+            ctx.body = { message: '该专利您已经预定过，请勿重复预定' };
+            return;
+        }
+
+        ctx.status = 400;
+        ctx.body = { message: '预定失败，请联系系统管理员' };
+        return;
+    }
+
     ctx.status = 200;
 });
 

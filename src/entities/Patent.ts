@@ -1,5 +1,6 @@
-import { Entity, Property, Enum, Unique } from '@mikro-orm/better-sqlite';
+import { Entity, Property, Enum, Unique, OneToMany, Collection, OneToOne } from '@mikro-orm/better-sqlite';
 import { BaseEntity } from './base-entity';
+import { Order } from './order';
 
 @Entity()
 export class Patent extends BaseEntity {
@@ -25,6 +26,9 @@ export class Patent extends BaseEntity {
 
   @Property({ default: 0, columnType: 'decimal(10, 2)' })
   price!: number;
+
+  @OneToOne('Order', 'patent')
+  order?: Order;
 
   /**
    * 缴费截止日期
@@ -113,5 +117,21 @@ export const PatentStatusText: Array<{ name: string, value: PatentStatus}> = [
   {
     name: '已下证',
     value: PatentStatus.ISSUED
+  }
+];
+
+export const PatentCategoryText: Array<{ name: string, value: PatentCategory}> = [
+
+  {
+    name: '未知类型',
+    value: PatentCategory.UNKNOWN
+  },
+  {
+    name: '实时',
+    value: PatentCategory.REALTIME
+  },
+  {
+    name: '代售',
+    value: PatentCategory.PROXY
   }
 ];

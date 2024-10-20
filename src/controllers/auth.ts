@@ -7,9 +7,10 @@ import { QueryBuilder } from '@mikro-orm/better-sqlite';
 import { LoginAccountDto, RegisterAccountDto } from '../dto/account-query-dto';
 import { deserialize } from 'class-transformer';
 import { SignJWT } from 'jose';
+import { JWT_SECRET } from '../config';
 
 const router = new Router();
-const secret = new TextEncoder().encode('cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2');
+const secret = new TextEncoder().encode(JWT_SECRET);
 
 router.prefix('/v1/pb/auth');
 router.post('/login', async (ctx: Context) => {
@@ -44,7 +45,7 @@ router.post('/login', async (ctx: Context) => {
         return;
     }
 
-    const token = await new SignJWT({ number: account.mobile, name: account.name })
+    const token = await new SignJWT({ id: account.id, mobile: account.mobile, email: account.email, name: account.name })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setIssuer('http://localhost')

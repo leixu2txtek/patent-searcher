@@ -1,5 +1,6 @@
 import { Expose } from "class-transformer";
 import { PageAble } from "../common/page-able";
+import { PatentCategory, PatentType } from "../entities/patent";
 
 export class PatentQueryDto extends PageAble {
 
@@ -17,15 +18,20 @@ export class PatentQueryDto extends PageAble {
     number?: string;
 
     /**
-     * 专利类型
+     * 专利类别
      */
-    type?: Array<number>;
+    type?: PatentType;
 
     /**
      * 指导价格
      */
     @Expose({ name: 'price_range' })
     price?: string;
+
+    /**
+     * 专利类型
+     */
+    category?: PatentCategory;
 
     getPriceOfMin(): number | undefined {
 
