@@ -24,14 +24,12 @@
 ## Docker Supported
 
 1. npm run build
-2. cd docker
-3. docker build ./ -t patent-search:lastest
+2. docker build ./ -t patent-search:lastest
 
-## docker-compose 启动
+## docker-compose 
 
-1. 复制根目录docker-compose.yml .env 两个文件到需要启动的目录
-2. 更改 .env 文件中的构件版本号，以及需要启动的环境信息，见环境说明
-3. 执行以下命令启动即可
+1. create .env file, and set the environment variables
+2. 执行以下命令启动即可
 
 ```
 docker-compose -f docker-compose.yml up -d
