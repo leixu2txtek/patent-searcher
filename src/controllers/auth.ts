@@ -8,6 +8,7 @@ import { LoginAccountDto, RegisterAccountDto } from '../dto/account-query-dto';
 import { deserialize } from 'class-transformer';
 import { SignJWT } from 'jose';
 import { JWT_SECRET } from '../config';
+import { create } from 'svg-captcha'
 
 const router = new Router();
 const secret = new TextEncoder().encode(JWT_SECRET);
@@ -27,6 +28,14 @@ router.post('/login', async (ctx: Context) => {
 
         ctx.status = 400;
         ctx.body = { message: '验证码不能为空' };
+        return;
+    }
+
+    const captcha = ctx.cookies.get('captcha');
+    if (!captcha || query.code.toLowerCase() !== captcha.toLowerCase()) {
+
+        ctx.status = 400;
+        ctx.body = { message: '验证码错误' };
         return;
     }
 
@@ -95,6 +104,17 @@ router.post('/register', async (ctx: Context) => {
 
     ctx.status = 200;
     ctx.body = { message: '注册成功' };
+});
+
+router.get('/captcha', async (ctx: Context) => {
+
+    const { data, text } = create();
+
+    // 加密验证码
+
+    ctx.cookies.set('captcha', text, { httpOnly: true });
+    ctx.type = 'svg';
+    ctx.body = data;
 });
 
 router.post('/password/modify', async (ctx: Context) => {

@@ -30,6 +30,7 @@
     "node-xlsx": "^0.24.0",
     "reflect-metadata": "^0.2.1",
     "snowflake-id": "^1.1.0",
+    "svg-captcha": "^1.4.0",
     "typescript": "5.3.3"
   },
   "devDependencies": {
