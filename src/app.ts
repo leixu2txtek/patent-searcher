@@ -9,8 +9,9 @@ import jwt from 'koa-jwt';
 import dotenv from 'dotenv';
 
 // Init config
-const root: string = join(__dirname, '../');
-dotenv.config({ path: join(root, 'config', `.env.${process.env.NODE_ENV || 'development'}`) });
+dotenv.config({ path: join(__dirname, 'config', `.env.${process.env.NODE_ENV || 'development'}`) });
+
+console.log(join(__dirname, 'config', `.env.${process.env.NODE_ENV || 'development'}`));
 
 const JWT_SECRET: string | undefined = process.env.JWT_SECRET;
 if (!JWT_SECRET) throw new Error('JWT_SECRET is required.');
@@ -26,7 +27,7 @@ app.use(jwt({ secret: JWT_SECRET }).unless({ path: /^\/v\d+\/pb/ }));
 
 // 加载路由
 {
-  const routes = readdirSync(join(__dirname, 'controllers')).filter(file => file.endsWith('.ts'));
+  const routes = readdirSync(join(__dirname, 'controllers')).filter(file => file.endsWith('.js'));
   routes.forEach(async (file) => {
     try {
 

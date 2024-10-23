@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'patent-search',
-    script: './app.js',
+    script: 'src/app.js',
     port: '8030',
     error: './logs/error.log',
     log: './logs/info.log',

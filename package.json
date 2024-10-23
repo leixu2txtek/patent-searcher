@@ -16,6 +16,7 @@
     "patent",
     "nodejs"
   ],
+  "type": "commonjs",
   "author": "leixu2txtek",
   "dependencies": {
     "@mikro-orm/better-sqlite": "^6.3.13",

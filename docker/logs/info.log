@@ -1,0 +1,87 @@
+2024-10-23 14:34:53: /app/src/config/.env.development
+2024-10-23 14:34:53: [90m[info] [39mMikroORM version: [32m6.3.13[39m
+2024-10-23 14:34:53: [90m[discovery] [39mORM entity discovery started, using [36mReflectMetadataProvider[39m
+2024-10-23 14:34:53: [90m[discovery] [39m- processing [36m15[39m files
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file account.d.ts
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file account.js.map
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file base-entity.d.ts
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file base-entity.js.map
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file order.d.ts
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file order.js.map
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file patent.d.ts
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file patent.js.map
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file role.d.ts
+2024-10-23 14:34:53: [90m[discovery] [39m- ignoring file role.js.map
+2024-10-23 14:34:53: [90m[discovery] [39m- processing entity [36mAccount[39m[90m (/app/src/entities/account.js)[39m
+2024-10-23 14:34:53: [90m[discovery] [39m- processing entity [36mBaseEntity[39m[90m (/app/src/entities/base-entity.js)[39m
+2024-10-23 14:34:53: [90m[discovery] [39m- processing entity [36mOrder[39m[90m (/app/src/entities/order.js)[39m
+2024-10-23 14:34:53: [90m[discovery] [39m- processing entity [36mPatent[39m[90m (/app/src/entities/patent.js)[39m
+2024-10-23 14:34:53: [90m[discovery] [39m- processing entity [36mRole[39m[90m (/app/src/entities/role.js)[39m
+2024-10-23 14:34:53: [90m[discovery] [39m- entity discovery finished, found [32m5[39m entities, took [32m20 ms[39m
+2024-10-23 14:34:53: [90m[query] [39mselect name as table_name from sqlite_master where type = 'table' and name != 'sqlite_sequence' and name != 'geometry_columns' and name != 'spatial_ref_sys' union all select name as table_name from sqlite_temp_master where type = 'table' order by name[90m [took 1 ms, 4 results][39m
+2024-10-23 14:34:53: [90m[info] [39mMikroORM successfully connected to database [32mpatent.db[39m
+2024-10-23 14:34:53: [90m[query] [39mselect name as table_name from sqlite_master where type = 'table' and name != 'sqlite_sequence' and name != 'geometry_columns' and name != 'spatial_ref_sys' union all select name as table_name from sqlite_temp_master where type = 'table' order by name[90m [took 1 ms, 4 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_xinfo('account')[90m [took 0 ms, 9 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'account'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`account`)[90m [took 0 ms, 9 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_list(`account`)[90m [took 0 ms, 2 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_info(`account_mobile_unique`)[90m [took 1 ms, 1 result][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`account`)[90m [took 0 ms, 9 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma foreign_key_list(`account`)[90m [took 0 ms, 0 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'account'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_xinfo('order')[90m [took 0 ms, 6 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'order'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`order`)[90m [took 0 ms, 6 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_list(`order`)[90m [took 0 ms, 2 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_info(`order_patent_id_unique`)[90m [took 0 ms, 1 result][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`order`)[90m [took 0 ms, 6 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma foreign_key_list(`order`)[90m [took 0 ms, 1 result][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'order'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_xinfo('patent')[90m [took 0 ms, 15 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'patent'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`patent`)[90m [took 0 ms, 15 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_list(`patent`)[90m [took 0 ms, 2 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_info(`patent_number_unique`)[90m [took 0 ms, 1 result][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`patent`)[90m [took 0 ms, 15 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma foreign_key_list(`patent`)[90m [took 0 ms, 0 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'patent'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_xinfo('role')[90m [took 0 ms, 6 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'role'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`role`)[90m [took 0 ms, 6 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma index_list(`role`)[90m [took 0 ms, 1 result][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma table_info(`role`)[90m [took 0 ms, 6 results][39m
+2024-10-23 14:34:53: [90m[query] [39mpragma foreign_key_list(`role`)[90m [took 0 ms, 0 results][39m
+2024-10-23 14:34:53: [90m[query] [39mselect sql from sqlite_master where type = 'table' and name = 'role'[90m [took 0 ms][39m
+2024-10-23 14:34:53: [90m[schema] [39mFK constraint order_patent_id_foreign removed from table order
+2024-10-23 14:34:53: Server listening on port: 8030
+2024-10-23 14:36:00: /app/src/config/.env.development
+2024-10-23 14:36:01: [90m[info] [39mMikroORM version: [32m6.3.13[39m
+2024-10-23 14:36:01: [90m[discovery] [39mORM entity discovery started, using [36mReflectMetadataProvider[39m
+2024-10-23 14:36:01: [90m[discovery] [39m- processing [36m15[39m files
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file account.d.ts
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file account.js.map
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file base-entity.d.ts
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file base-entity.js.map
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file order.d.ts
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file order.js.map
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file patent.d.ts
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file patent.js.map
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file role.d.ts
+2024-10-23 14:36:01: [90m[discovery] [39m- ignoring file role.js.map
+2024-10-23 14:36:01: [90m[discovery] [39m- processing entity [36mAccount[39m[90m (/app/src/entities/account.js)[39m
+2024-10-23 14:36:01: [90m[discovery] [39m- processing entity [36mBaseEntity[39m[90m (/app/src/entities/base-entity.js)[39m
+2024-10-23 14:36:01: [90m[discovery] [39m- processing entity [36mOrder[39m[90m (/app/src/entities/order.js)[39m
+2024-10-23 14:36:01: [90m[discovery] [39m- processing entity [36mPatent[39m[90m (/app/src/entities/patent.js)[39m
+2024-10-23 14:36:01: [90m[discovery] [39m- processing entity [36mRole[39m[90m (/app/src/entities/role.js)[39m
+2024-10-23 14:36:01: [90m[discovery] [39m- entity discovery finished, found [32m5[39m entities, took [32m31 ms[39m
+2024-10-23 14:36:01: [90m[query] [39mselect name as table_name from sqlite_master where type = 'table' and name != 'sqlite_sequence' and name != 'geometry_columns' and name != 'spatial_ref_sys' union all select name as table_name from sqlite_temp_master where type = 'table' order by name[90m [took 1 ms, 0 results][39m
+2024-10-23 14:36:01: [90m[info] [39mMikroORM successfully connected to database [32m./database/patent.db[39m
+2024-10-23 14:36:01: [90m[query] [39mselect name as table_name from sqlite_master where type = 'table' and name != 'sqlite_sequence' and name != 'geometry_columns' and name != 'spatial_ref_sys' union all select name as table_name from sqlite_temp_master where type = 'table' order by name[90m [took 1 ms, 0 results][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate table `account` (`id` varchar not null, `creator_id` varchar not null, `created_at` datetime not null, `updated_at` datetime not null, `updator_id` varchar null, `name` varchar(50) not null, `password` varchar(50) not null, `mobile` varchar(11) not null, `email` varchar(100) not null, primary key (`id`));[90m [took 3 ms][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate unique index `account_mobile_unique` on `account` (`mobile`);[90m [took 4 ms][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate table `patent` (`id` varchar not null, `creator_id` varchar not null, `created_at` datetime not null, `updated_at` datetime not null, `updator_id` varchar null, `name` varchar(100) not null, `number` varchar(100) not null, `type` int not null default -1, `status` int not null default -1, `category` int not null default -1, `price` decimal(10, 2) not null default 0, `deadline` datetime not null, `reported` tinyint not null default false, `domain` varchar(1000) null, `remark` text null, primary key (`id`));[90m [took 3 ms][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate unique index `patent_number_unique` on `patent` (`number`);[90m [took 3 ms][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate table `order` (`id` varchar not null, `creator_id` varchar not null, `created_at` datetime not null, `updated_at` datetime not null, `updator_id` varchar null, `patent_id` varchar not null, constraint `order_patent_id_foreign` foreign key(`patent_id`) references `patent`(`id`), primary key (`id`));[90m [took 7 ms][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate unique index `order_patent_id_unique` on `order` (`patent_id`);[90m [took 3 ms][39m
+2024-10-23 14:36:01: [90m[query] [39mcreate table `role` (`id` varchar not null, `creator_id` varchar not null, `created_at` datetime not null, `updated_at` datetime not null, `updator_id` varchar null, `name` varchar(50) not null, primary key (`id`));[90m [took 3 ms][39m
+2024-10-23 14:36:01: Server listening on port: 8030

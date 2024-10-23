@@ -41,9 +41,5 @@ docker-compose -f docker-compose.yml up -d
 
 | 环境 | ENV 配置|
 | ----- | ------- |
-| 公网开发环境 | development |
-| 公网测试环境 | test-154 |
-| 公网生产环境 | prod-sh |
-| 运营开发环境 | dev-235 |
-| 运营测试环境 | test-239 |
+| 开发环境 | development |
 | 运营生产环境 | production |

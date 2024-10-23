@@ -1,8 +1,8 @@
 import { defineConfig } from '@mikro-orm/better-sqlite';
 
 export default defineConfig({
-  dbName: 'patent.db',
-  entities: ['./src/entities'],
-  debug: true,
+  dbName: './database/patent.db',
+  entities: ['./src/entities/*'],
+  debug: process.env.NODE_ENV !== 'production',
   allowGlobalContext: true,
 });

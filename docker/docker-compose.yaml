@@ -1,6 +1,8 @@
-version: '3'
 services:
   patent-searcher:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
     container_name: patent-searcher-backend
     image: patent-search:latest
     restart: always
@@ -15,11 +17,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./database:/app/database
+      - ./logs:/app/logs
     ports:
       - 8081:8030
-    networks:
-      - custom_network
-
-networks:
-  custom_network:
-    external: true
