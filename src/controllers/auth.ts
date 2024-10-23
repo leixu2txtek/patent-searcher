@@ -7,11 +7,10 @@ import { QueryBuilder } from '@mikro-orm/better-sqlite';
 import { LoginAccountDto, RegisterAccountDto } from '../dto/account-query-dto';
 import { deserialize } from 'class-transformer';
 import { SignJWT } from 'jose';
-import { JWT_SECRET } from '../config';
-import { create } from 'svg-captcha'
+import { create } from 'svg-captcha';
 
 const router = new Router();
-const secret = new TextEncoder().encode(JWT_SECRET);
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 router.prefix('/v1/pb/auth');
 router.post('/login', async (ctx: Context) => {

@@ -1,0 +1,25 @@
+version: '3'
+services:
+  patent-searcher:
+    container_name: patent-searcher-backend
+    image: patent-search:latest
+    restart: always
+    hostname: patent-searcher-backend
+    working_dir: /app
+    command: 
+      - pm2-runtime
+      - start
+      - ecosystem.config.cjs
+      - --env
+      - ${env}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./database:/app/database
+    ports:
+      - 8081:8030
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+    external: true

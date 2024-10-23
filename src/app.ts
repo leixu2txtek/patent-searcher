@@ -4,9 +4,16 @@ import Koa from 'koa';
 import { koaBody as BodyParser } from 'koa-body';
 import { join } from 'path';
 import { readdirSync } from 'fs';
-import { EntityManager, EntityRepository, MikroORM, RequestContext } from '@mikro-orm/better-sqlite';
+import { EntityManager, MikroORM } from '@mikro-orm/better-sqlite';
 import jwt from 'koa-jwt';
-import { JWT_SECRET } from './config';
+import dotenv from 'dotenv';
+
+// Init config
+const root: string = join(__dirname, '../');
+dotenv.config({ path: join(root, 'config', `.env.${process.env.NODE_ENV || 'development'}`) });
+
+const JWT_SECRET: string | undefined = process.env.JWT_SECRET;
+if (!JWT_SECRET) throw new Error('JWT_SECRET is required.');
 
 const app = new Koa();
 const PORT = process.env.PORT || 8080;
@@ -38,7 +45,9 @@ export const DI = {} as {
 };
 
 (async () => {
-  DI.orm = await MikroORM.init(); // CLI config will be used automatically
+
+  // CLI config will be used automatically
+  DI.orm = await MikroORM.init();
   DI.em = DI.orm.em;
 
   await DI.orm.schema.updateSchema();
