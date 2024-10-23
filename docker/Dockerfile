@@ -1,4 +1,4 @@
-FROM docker.io/library/node:20.18.0-slim
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/library/node:20-alpine
 
 # Set work directory 
 WORKDIR /app
