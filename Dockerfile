@@ -1,5 +1,8 @@
 FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/library/node:20-alpine
 
+# Install g++ and make
+RUN apk add g++ make py3-pip
+
 # Set work directory 
 WORKDIR /app
 ADD ./dist ./
