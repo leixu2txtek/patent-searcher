@@ -11,4 +11,4 @@ npm run build > /dev/null 2>&1
 echo "env=production" > .env
 echo "开始启动镜像服务..."
 
-docker-compose -f ./docker/docker-compose.yaml up --build
+docker-compose -f ./docker-compose.yaml up --build
