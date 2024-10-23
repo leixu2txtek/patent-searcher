@@ -8,5 +8,5 @@ ADD ./package-lock.json ./
 ADD ./ecosystem.config.cjs ./
 ADD ./src/config ./src/config
 
-RUN npm install --registry=https://registry.npm.taobao.org
-RUN npm install pm2 -g --registry=https://registry.npm.taobao.org
+RUN npm install --registry=https://registry.npmmirror.com/
+RUN npm install pm2 -g --registry=https://registry.npmmirror.com/
