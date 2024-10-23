@@ -16,7 +16,7 @@ const secret = new TextEncoder().encode(JWT_SECRET);
 router.prefix('/v1/pb/auth');
 router.post('/login', async (ctx: Context) => {
 
-    const query = deserialize(LoginAccountDto, JSON.stringify(ctx.request.body));
+    const query = deserialize<LoginAccountDto>(LoginAccountDto, JSON.stringify(ctx.request.body));
     if (!query.username || !query.password) {
 
         ctx.status = 400;

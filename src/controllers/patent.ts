@@ -19,12 +19,12 @@ router.prefix('/v1/pt/patent');
 
 router.get('/list', async (ctx: Context) => {
 
-    const query = deserialize(PatentQueryDto, JSON.stringify(ctx.query));
+    const query: PatentQueryDto = deserialize(PatentQueryDto, JSON.stringify(ctx.query));
 
     let builder: QueryBuilder<Patent> = DI.em.createQueryBuilder(Patent, 'p');
     builder.select('*')
-    .leftJoin('p.order', 'o')
-    .where("1 = 1");
+        .leftJoin('p.order', 'o')
+        .where("1 = 1");
 
     if (query.keyword) {
 
